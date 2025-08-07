@@ -1,0 +1,36 @@
+#main-logo{
+    margin-left: 10px;
+    border: 10px;
+    background-color: black;
+    color: white;
+    outline: none;
+    width: 100px;
+    height: 100px;
+}
+
+#search-bar{
+    margin-left: 25%;
+    width: 40%;
+    vertical-align: 40px;
+}
+
+.main-image{
+    border: 3px;
+    width: 400px;
+    margin-left: 35%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.main-login-register{
+    width: 80px;
+    height: 20px;
+    vertical-align: 40px;
+}
+
+.register-login{
+    margin-left: 45%;
+    width: 200px;
+    height: 20px;
+    padding: 10px;
+}
