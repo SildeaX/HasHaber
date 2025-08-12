@@ -1,0 +1,17 @@
+#top-bar {
+    background-color: black;
+}
+
+.main-page-news-list {
+    list-style-type: none;
+}
+
+.main-page-news-content {
+    font-size: larger;
+}
+
+#news-posting-url {
+    size: 30px;
+    font-style: italic;
+    font-size: larger;
+}
