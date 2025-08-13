@@ -34,7 +34,7 @@ body {
 }
 
 .news-posting-page {
-    margin-top: 10%;
+    margin-top: 6%;
     width: auto;
     justify-content: center;
     align-items: center;
@@ -50,6 +50,16 @@ body {
 }
 
 .main-page-news-content {
+    vertical-align: top;
+    margin-bottom: 12%;
+}
+
+.news-page-news-title {
+    vertical-align: top;
+    margin: auto;
+}
+
+.news-page-news-content {
     vertical-align: top;
     margin-bottom: 12%;
 }
