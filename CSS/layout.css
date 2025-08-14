@@ -24,7 +24,16 @@ body {
 }
 
 .register-login-page {
-    margin-top: 2%;
+    margin-top: 5%;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-login-button-layout {
+    margin-top: 1%;
     width: auto;
     justify-content: center;
     align-items: center;

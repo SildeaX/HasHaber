@@ -2,7 +2,9 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="./CSS/main.css">
+</head>
 
 <body>
     <div id="top-bar">
@@ -10,21 +12,24 @@
             <img src="Images/logo-revert.png" alt="HasHaber" id="main-logo">
         </a>
     </div>
-    <div class="register-login-page">
-        <input type="text" placeholder="Name" required>
-        <br>
-        <input type="text" placeholder="Surname" required>
-        <br>
-        <input type="email" placeholder="E-mail" required>
-        <br>
-        <input type="password" placeholder="Password" required>
-    </div>
-    <div class="register-login-page">
-        <a href="main.html">
-            <input type="button" value="Register">
-        </a>
-    </div>
+    <form action="" method="get">
+        <div class="register-login-page">
+            <input id="name" type="text" placeholder="  Name" required>
+            <br>
+            <input id="surname" type="text" placeholder="  Surname" required>
+            <br>
+            <input id="email" type="email" placeholder="  E-mail" required>
+            <br>
+            <input id="password" type="password" placeholder="  Password" required>
+            <br>
+            <input id="password" type="password" placeholder="  Confirm Password" required>
+        </div>
+        <div class="register-login-button-layout">
+            <a href="main.html">
+                <input type="submit" value="Register" class="register-login-button">
+            </a>
+        </div>
+    </form>
 </body>
-</head>
 
 </html>
