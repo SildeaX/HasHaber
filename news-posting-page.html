@@ -12,16 +12,20 @@
     <a href="main.html">
       <img src="Images/logo-revert.png" alt="HasHaber" id="main-logo">
     </a>
+    <a href="" id="dark-light-theme-button">
+      &#x1F315
+    </a>
   </div>
   <form action="" method="get">
     <div class="news-posting-page">
-      <input id="news-posting-url" type="url" placeholder="Image Link" size="30px" pattern="https://.*" required>
+      <div>
+        <input id="news-posting-url" type="url" placeholder="Image Link" size="30px" pattern="https://.*" required>
+        <input type="button" id="news-posting-page-image-button" value="Upload Image">
+      </div>
       <br>
       <input id="news-posting-title" type="text" placeholder="Title">
       <br>
-      <div>
-        <textarea id="news-posting-textarea" placeholder="Write here..." cols="100" rows="20" required></textarea>
-      </div>
+      <textarea id="news-posting-textarea" placeholder="Write here..." cols="100" rows="20" required></textarea>
       <input id="news-posting-post-button" type="submit" value="Post">
     </div>
   </form>
