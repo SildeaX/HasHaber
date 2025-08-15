@@ -1,12 +1,18 @@
+#top-bar{
+    display: flex;
+}
+
 body {
     margin: 0%;
     padding: 0%;
 }
 
 #search-bar {
-    margin-left: 25%;
-    width: 40%;
-    vertical-align: 40px;
+    margin-left: 10%;
+    width: 50%;
+    max-height: 20px;
+    align-self: anchor-center;
+    flex: none;
 }
 
 .register-login-upper-right-corner {
@@ -39,7 +45,6 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
-
 }
 
 .news-posting-page {
@@ -49,8 +54,14 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
+}
 
-
+#main-page-news-li{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0px;
+    margin: 0px;
+    gap: 20px;
 }
 
 .main-page-news-title {
@@ -72,3 +83,20 @@ body {
     vertical-align: top;
     margin-bottom: 12%;
 }
+
+#news-posting-textarea{
+    resize: vertical;
+    width: 40%;
+    height: 300px;
+}
+
+#news-posting-page-image-button{
+    font-size: medium;
+}
+
+#news-posting-post-button{
+    margin-top: 1%;
+    font-size: medium;
+    width: 5%;
+}
+

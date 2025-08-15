@@ -2,10 +2,6 @@
     background-color: black;
 }
 
-.main-page-news-list {
-    list-style-type: none;
-}
-
 .main-page-news-content {
     font-size: larger;
 }
@@ -20,7 +16,6 @@
     font-size: xx-large;
     font-style: italic;
 }
-
 
 .register-login-button {
     width: 100px;

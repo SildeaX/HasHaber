@@ -1,4 +1,4 @@
-#main-logo{
+#main-logo {
     margin-left: 1%;
     background-color: black;
     color: white;
@@ -7,11 +7,35 @@
     height: 100px;
 }
 
-.main-image{
+#search-bar-search-button {
+    height: auto;
+    width: auto;
+    align-self: center;
+    display: flex;
+    background-color: white;
+    text-decoration: none;
+}
+
+#dark-light-theme-button {
+    height: auto;
+    align-items: center;
+    justify-content: end;
+    display: flex;
+    margin-left: auto;
+    text-decoration: none;
+}
+
+.main-image {
+    border: 3px;
+    width: 70%;
+    display: block;
+}
+
+.new-page-main-image {
     border: 3px;
     width: 400px;
     flex: content;
     margin: auto;
-    padding-top: 10px;
     padding-bottom: 10px;
+    justify-content: center;
 }
