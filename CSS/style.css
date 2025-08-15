@@ -2,8 +2,6 @@
     background-color: black;
 }
 
-
-
 .main-page-news-content {
     font-size: larger;
 }
@@ -17,4 +15,83 @@
 #news-posting-title {
     font-size: xx-large;
     font-style: italic;
+}
+
+.register-login-button {
+    width: 100px;
+    background-color: black;
+    border: none;
+    outline: none;
+    height: 38px;
+    border-radius: 38px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0px 0px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#name {
+    width: 200px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;   
+    height: 40px;
+    border-radius: 49px;
+    color: #c9c9c9;
+    font-weight: 600;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#surname {
+   width: 200px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;   
+    height: 40px;
+    border-radius: 49px;
+    color: #c9c9c9;
+    font-weight: 600;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#email {
+    width: 200px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;   
+    height: 40px;
+    border-radius: 49px;
+    color: #c9c9c9;
+    font-weight: 600;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#password {
+    width: 200px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;   
+    height: 40px;
+    border-radius: 49px;
+    color: #c9c9c9;
+    font-weight: 600;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
 }
