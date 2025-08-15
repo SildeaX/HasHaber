@@ -12,11 +12,6 @@
     font-size: larger;
 }
 
-#news-posting-title {
-    font-size: xx-large;
-    font-style: italic;
-}
-
 .register-login-button {
     width: 100px;
     background-color: black;
@@ -36,7 +31,7 @@
     width: 200px;
     background-color: rgb(50, 50, 50);
     border: none;
-    outline: none;   
+    outline: none;
     height: 40px;
     border-radius: 49px;
     color: #c9c9c9;
@@ -49,10 +44,10 @@
 }
 
 #surname {
-   width: 200px;
+    width: 200px;
     background-color: rgb(50, 50, 50);
     border: none;
-    outline: none;   
+    outline: none;
     height: 40px;
     border-radius: 49px;
     color: #c9c9c9;
@@ -68,7 +63,7 @@
     width: 200px;
     background-color: rgb(50, 50, 50);
     border: none;
-    outline: none;   
+    outline: none;
     height: 40px;
     border-radius: 49px;
     color: #c9c9c9;
@@ -84,7 +79,7 @@
     width: 200px;
     background-color: rgb(50, 50, 50);
     border: none;
-    outline: none;   
+    outline: none;
     height: 40px;
     border-radius: 49px;
     color: #c9c9c9;
@@ -94,4 +89,77 @@
     display: grid;
     grid-template-columns: 15% 85%;
     position: relative;
+}
+
+#news-posting-url-button {
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: black;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: larger;
+}
+
+
+#news-posting-title {
+    width: 300px;
+    font-size: x-large;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;
+    height: 56px;
+    border-radius: 10px;
+    color: #c9c9c9;
+    font-weight: 600;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#news-posting-content {
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    color: #c9c9c9;
+    font-weight: 350;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#news-posting-url {
+    width: 450px;
+    background-color: rgb(50, 50, 50);
+    border: none;
+    outline: none;
+    height: 35px;
+    border-radius: 10px;
+    color: #c9c9c9;
+    padding: 0px 0.7rem;
+    cursor: pointer;
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+
+#news-posting-post-button {
+    width: 100px;
+    background-color: black;
+    border: none;
+    outline: none;
+    height: 38px;
+    border-radius: 38px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0px 0px;
+    cursor: pointer;
+    transition: 0.5s;
 }

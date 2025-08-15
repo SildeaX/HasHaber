@@ -19,14 +19,17 @@
   <form action="" method="get">
     <div class="news-posting-page">
       <div>
-        <input id="news-posting-url" type="url" placeholder="Image Link" size="30px" pattern="https://.*" required>
-        <input type="button" id="news-posting-page-image-button" value="Upload Image">
+        <input id="news-posting-url" type="url" placeholder="Image URL:'https://...' " size="30px" pattern="https://.*" required>
+        <input id="news-posting-url-button" type="button" value="Upload Image">
       </div>
       <br>
       <input id="news-posting-title" type="text" placeholder="Title">
       <br>
-      <textarea id="news-posting-textarea" placeholder="Write here..." cols="100" rows="20" required></textarea>
+      <textarea id="news-posting-content" placeholder="Write here..." cols="100" rows="20" required></textarea>
+    </div>
+    <div class="news-posting-page">
       <input id="news-posting-post-button" type="submit" value="Post">
     </div>
+
   </form>
 </body>

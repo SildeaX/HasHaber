@@ -7,6 +7,17 @@
     height: 100px;
 }
 
+
+.main-image {
+    border: 3px;
+    width: 400px;
+    flex: content;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
 #search-bar-search-button {
     height: auto;
     width: auto;
@@ -23,19 +34,4 @@
     display: flex;
     margin-left: auto;
     text-decoration: none;
-}
-
-.main-image {
-    border: 3px;
-    width: 70%;
-    display: block;
-}
-
-.new-page-main-image {
-    border: 3px;
-    width: 400px;
-    flex: content;
-    margin: auto;
-    padding-bottom: 10px;
-    justify-content: center;
 }
