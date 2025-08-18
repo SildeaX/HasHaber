@@ -12,6 +12,17 @@
     font-size: larger;
 }
 
+#login-upper-right,
+#register-upper-right,
+#post-news-upper-right {
+    background-color: #C9C9C9;
+    border: 1px solid #C9C9C9;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
 .register-login-button {
     width: 100px;
     background-color: black;
@@ -37,7 +48,6 @@
     color: #c9c9c9;
     font-weight: 600;
     padding: 0px 0.7rem;
-    cursor: pointer;
     display: grid;
     grid-template-columns: 15% 85%;
     position: relative;
@@ -53,7 +63,6 @@
     color: #c9c9c9;
     font-weight: 600;
     padding: 0px 0.7rem;
-    cursor: pointer;
     display: grid;
     grid-template-columns: 15% 85%;
     position: relative;
@@ -69,7 +78,6 @@
     color: #c9c9c9;
     font-weight: 600;
     padding: 0px 0.7rem;
-    cursor: pointer;
     display: grid;
     grid-template-columns: 15% 85%;
     position: relative;
@@ -85,7 +93,6 @@
     color: #c9c9c9;
     font-weight: 600;
     padding: 0px 0.7rem;
-    cursor: pointer;
     display: grid;
     grid-template-columns: 15% 85%;
     position: relative;
@@ -162,4 +169,19 @@
     margin: 0px 0px;
     cursor: pointer;
     transition: 0.5s;
+}
+
+#search-bar {
+    background-color: #C9C9C9;
+    border: 3px solid #C9C9C9;
+    border-radius: 10px;
+}
+
+#search-button {
+    background-color: #C9C9C9;
+    border: 3px solid #C9C9C9;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: medium;
 }

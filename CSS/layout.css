@@ -19,6 +19,10 @@ li {
     flex: none;
 }
 
+#search-button {
+    align-self: anchor-center;
+}
+
 .register-login-upper-right-corner {
     justify-content: right;
     align-items: end;
@@ -27,7 +31,7 @@ li {
 
 .post-news-button {
     justify-content: right;
-    margin-top: 0.5%;
+    margin-top: 0.1%;
     align-items: center;
     display: flex;
     width: 99%;
