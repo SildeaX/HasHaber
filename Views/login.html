@@ -2,33 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>HasHaber/login</title>
-  <link rel="stylesheet" href="../Public/CSS/main.css">
+    <meta charset="UTF-8">
+    <title>HasHaber/login</title>
+    <link rel="stylesheet" href="../Public/CSS/main.css">
 </head>
 
 <body>
-  <div id="top-bar">
-    <a href="main.html">
-      <img src="../Public/Images/logo-revert.png" alt="HasHaber" id="main-logo">
-    </a>
+    <div id="top-bar">
+        <a href="main.html">
+            <img src="../Public/Images/logo-revert.png" alt="HasHaber" id="main-logo">
+        </a>
         <a href="" id="dark-light-theme-button">
             &#x1F315
-        </a>    
-  </div>
-  <form action="" method="get">
-    <div class="register-login-page">
-      <input id="email" type="email" placeholder="  E-mail" required>
-      <br>
-      <input id="password" type="password" placeholder="  Password" required>
+        </a>
     </div>
-    <div class="register-login-button-layout">
-      <a href="main.html">
-        <input class="register-login-button" type="submit" value="Login">
-      </a>
-    </div>
-  </form>
-
+    <form action="/api/login" method="post">
+        <div class="register-login-page">
+            <input id="email" name="email" type="email" placeholder="  E-mail" required>
+            <br>
+            <input id="password" name="password" type="password" placeholder="  Password" required>
+        </div>
+        <div class="register-login-button-layout">
+            <input class="register-login-button" type="submit" value="Login">
+        </div>
+    </form>
 </body>
 
 </html>

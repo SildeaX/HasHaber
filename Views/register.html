@@ -15,22 +15,20 @@
             &#x1F315
         </a>
     </div>
-    <form action="" method="get">
+    <form action="/api/register" method="post">
         <div class="register-login-page">
-            <input id="name" type="text" placeholder="  Name" required>
+            <input id="name" name="name" type="text" placeholder="  Name" required>
             <br>
-            <input id="surname" type="text" placeholder="  Surname" required>
+            <input id="surname" name="surname" type="text" placeholder="  Surname" required>
             <br>
-            <input id="email" type="email" placeholder="  E-mail" required>
+            <input id="email" name="email" type="email" placeholder="  E-mail" required>
             <br>
-            <input id="password" type="password" placeholder="  Password" required>
+            <input id="password" name="password" type="password" placeholder="  Password" required>
             <br>
-            <input id="password" type="password" placeholder="  Confirm Password" required>
+            <input id="password" name="confirmPassword" type="password" placeholder="  Confirm Password" required>
         </div>
         <div class="register-login-button-layout">
-            <a href="main.html">
-                <input type="submit" value="Register" class="register-login-button">
-            </a>
+            <input type="submit" value="Register" class="register-login-button">
         </div>
     </form>
 </body>
