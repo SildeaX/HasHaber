@@ -1,3 +1,5 @@
+Database/
+
 # Logs
 logs
 *.log
@@ -138,6 +140,3 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-# Initial Database files should be empty, so it should be ignored for file changes
-Database/
