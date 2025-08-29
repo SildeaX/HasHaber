@@ -18,13 +18,13 @@
   </div>
   <form action="/api/news-posting-page" method="post">
     <div class="news-posting-page">
+      <input id="news-posting-title" name="title" type="text" placeholder="Title">
+      <br>
       <div>
         <input id="news-posting-url" name="url" type="url" placeholder="Image URL:'https://...' " size="30px"
           pattern="https://.*" required>
         <input id="news-posting-url-button" type="submit" value="Upload Image">
       </div>
-      <br>
-      <input id="news-posting-title" name="title" type="text" placeholder="Title">
       <br>
       <textarea id="news-posting-content" name="content" placeholder="Write here..." cols="100" rows="20"
         required></textarea>

@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 */
 
 app.get("/login", function (req, res) {
-    res.sendFilrene(path.join(__dirname, "Views", "login.html"));
+    res.sendFile(path.join(__dirname, "Views", "login.html"));
 });
 
 app.get("/register", function (req, res) {
