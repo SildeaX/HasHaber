@@ -15,10 +15,10 @@ const app = express();
 
 // view engine
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'Views'));
 
 // static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 
 app.use(session({
     secret: 'sample-secret',
@@ -29,6 +29,27 @@ app.use(session({
 
 app.use(express.static("html"));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+/*
+  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  //////////////////////////////////////////////////////////////////////
+*/
+
+app.get("/login", function (req, res) {
+    res.sendFile(path.join(__dirname, "Views", "login.html"));
+});
+
+app.get("/register", function (req, res) {
+    res.sendFile(path.join(__dirname, "Views", "register.html"));
+});
+
+app.get("/news-posting-page", function (req, res) {
+    res.sendFile(path.join(__dirname, "Views", "news-posting-page.html"));
+});
+
+app.get("/news-page", function (req, res) {
+    res.sendFile(path.join(__dirname, "Views", "news-page.html"));
+});
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "Views", "main.html"));
