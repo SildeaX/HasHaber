@@ -2,34 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta>
+  <meta charset="UTF-8">
   <title>HasHaber/post-news</title>
-  <link rel="stylesheet" href="../Public/CSS/main.css">
+  <link rel="stylesheet" href="/CSS/main.css">
 </head>
 
 <body>
   <div id="top-bar">
-    <a href="main.html">
-      <img src="../Public/Images/logo-revert.png" alt="HasHaber" id="main-logo">
+    <a href="/">
+      <img src="/Images/logo-revert.png" alt="HasHaber" id="main-logo">
     </a>
     <a href="" id="dark-light-theme-button">
       &#x1F315
     </a>
   </div>
-  <form action="" method="get">
+  <form action="/api/news-posting-page" method="post">
     <div class="news-posting-page">
       <div>
-        <input id="news-posting-url" type="url" placeholder="Image URL:'https://...' " size="30px" pattern="https://.*" required>
-        <input id="news-posting-url-button" type="button" value="Upload Image">
+        <input id="news-posting-url" name="url" type="url" placeholder="Image URL:'https://...' " size="30px"
+          pattern="https://.*" required>
+        <input id="news-posting-url-button" type="submit" value="Upload Image">
       </div>
       <br>
-      <input id="news-posting-title" type="text" placeholder="Title">
+      <input id="news-posting-title" name="title" type="text" placeholder="Title">
       <br>
-      <textarea id="news-posting-content" placeholder="Write here..." cols="100" rows="20" required></textarea>
+      <textarea id="news-posting-content" name="content" placeholder="Write here..." cols="100" rows="20"
+        required></textarea>
     </div>
     <div class="news-posting-page">
       <input id="news-posting-post-button" type="submit" value="Post">
     </div>
-
   </form>
 </body>
+
+</html>
