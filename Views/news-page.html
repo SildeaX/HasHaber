@@ -10,20 +10,27 @@
         <a href="/">
             <img src="/Images/logo-revert.png" alt="HasHaber" id="main-logo">
         </a>
-        <input text="text" placeholder="Search a new..." id="search-bar">
-        <a href="" id="search-button">&#x1F50D</a>
+        <input text="text" placeholder="Search..." id="search-bar">
+        <a href="" id="search-button">
+            &#x1F50D
+        </a>
         <a href="" id="dark-light-theme-button">
             &#x1F315
         </a>
     </div>
     <div class="register-login-upper-right-corner">
-        <a href="login"><input type="button" value="Login" id="login-upper-right">
+        <a href="login">
+            <input type="button" value="Login" id="login-upper-right">
         </a>
-        <a href="register"><input type="button" value="Register" id="register-upper-right">
+        <form action="/api/logout" method="post">
+            <input type="button" name="logout" value="Logout" id="logout-button">
+        </form>
+        <a href="register">
+            <input type="button" value="Register" id="register-upper-right">
         </a>
     </div>
     <div class="post-news-button">
-        <a href="news-posting-page.html">
+        <a href="news-posting-page">
             <input type="button" value="Post News" id="post-news-upper-right">
         </a>
     </div>

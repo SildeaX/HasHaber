@@ -14,7 +14,8 @@
 
 #login-upper-right,
 #register-upper-right,
-#post-news-upper-right {
+#post-news-upper-right,
+#logout-button {
     background-color: #C9C9C9;
     border: 1px solid #C9C9C9;
     border-radius: 10px;
@@ -37,6 +38,7 @@
     cursor: pointer;
     transition: 0.5s;
 }
+
 
 #name {
     width: 200px;
