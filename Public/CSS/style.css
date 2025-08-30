@@ -2,6 +2,10 @@
     background-color: black;
 }
 
+#date-span, #clock-span {
+    color: white;
+}
+
 .main-page-news-content {
     font-size: larger;
 }

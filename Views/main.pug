@@ -1,0 +1,84 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="/CSS/main.css")
+  
+  body
+    #top-bar
+      a(href="/")
+        img(src="Images/logo-revert.png", alt="HasHaber", id="main-logo")
+      input(type="text", placeholder="Search...", id="search-bar")
+      a(href="", id="search-button") &#x1F50D
+      a(href="", id="dark-light-theme-button") &#x1F315
+
+      #date-clock-div
+        span#date-span
+        span#clock-span
+
+      script.
+        var clockSpan = document.getElementById("clock-span");
+        var dateSpan = document.getElementById("date-span")
+        date_time()
+
+        function date_time() {
+          var date = new Date();
+          var day = date.getDate();
+          var month = date.getMonth() + 1;
+          var year = date.getFullYear()
+          var second = date.getSeconds();
+          var minute = date.getMinutes();
+          var hour = date.getHours();
+
+          dateSpan.textContent =
+            ("0" + day).substr(-2) + "-" + ("0" + month).substr(-2) + "-" + year;
+          clockSpan.textContent =
+            ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
+        }
+        setInterval(date_time, 1000);
+
+    
+    .register-login-upper-right-corner
+      a(href="/login")
+        input(type="button", value="Login", id="login-upper-right")
+      form(action="/api/logout", method="post")
+        input(type="button", name="logout", value="Logout", id="logout-button")
+      a(href="/register")
+        input(type="button", value="Register", id="register-upper-right")
+    
+    .post-news-button
+      a(href="/news-posting-page")
+        input(type="button", value="Post News", id="post-news-upper-right")
+    
+    .main-image
+      ul
+        li
+          div
+            a(href="/news-page")
+              img(src="/Images/ked1.jfif", alt="Error", class="main-image")
+            h2.main-page-news-title  Cat News 1
+            p.main-page-news-content Cat looks to the right, but for what purpose?..
+          
+          div
+            a(href="/news-page")
+              img(src="/Images/ked2.jfif", alt="Error", class="main-image")
+            h2.main-page-news-title  Cat News 2
+            p.main-page-news-content Cat caught to the cameras...
+          
+          div
+            a(href="/news-page")
+              img(src="/Images/ked3.jfif", alt="Error", class="main-image")
+            h2.main-page-news-title  Cat News 3
+            p.main-page-news-content Cat found sleeping like he is some kind of prophet...
+          
+          div
+            a(href="/news-page")
+              img(src="/Images/ked4.jfif", alt="Error", class="main-image")
+            h2.main-page-news-title  Cat News 4
+            p.main-page-news-content Cat sleeping with his pillow, look how cute it is...
+          
+          div
+            a(href="/news-page")
+              img(src="/Images/ked5.jfif", alt="Error", class="main-image")
+            h2.main-page-news-title  Cat News 5
+            p.main-page-news-content Cat cosplaying as Crazy Dave from PvZ (Plants versus Zombies) by wearing a bag on his head...

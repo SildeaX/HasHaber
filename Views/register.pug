@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="/CSS/main.css")
+  
+  body
+    #top-bar
+      a(href="/")
+        img(src="/Images/logo-revert.png", alt="HasHaber", id="main-logo")
+      a(href="", id="dark-light-theme-button") &#x1F315
+
+      #date-clock-div
+        span#date-span
+        span#clock-span
+
+      script.
+        var clockSpan = document.getElementById("clock-span");
+        var dateSpan = document.getElementById("date-span")
+        date_time()
+
+        function date_time() {
+          var date = new Date();
+          var day = date.getDate();
+          var month = date.getMonth() + 1;
+          var year = date.getFullYear()
+          var second = date.getSeconds();
+          var minute = date.getMinutes();
+          var hour = date.getHours();
+
+          dateSpan.textContent =
+            ("0" + day).substr(-2) + "-" + ("0" + month).substr(-2) + "-" + year;
+          clockSpan.textContent =
+            ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
+        }
+        setInterval(date_time, 1000);
+    
+    form(action="/api/register", method="post")
+      .register-login-page
+        input(id="name", name="name", type="text", placeholder="  Name", required)
+        br
+        input(id="surname", name="surname", type="text", placeholder="  Surname", required)
+        br
+        input(id="email", name="email", type="email", placeholder="  E-mail", required)
+        br
+        input(id="password", name="password", type="password", placeholder="  Password", required)
+        br
+        input(id="password", name="confirmPassword", type="password", placeholder="  Confirm Password", required)
+      
+      .register-login-button-layout
+        input.register-login-button(type="submit", value="Register")

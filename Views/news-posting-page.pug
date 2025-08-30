@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title HasHaber/post-news
+    link(rel="stylesheet", href="/CSS/main.css")
+  
+  body
+    #top-bar
+      a(href="/")
+        img(src="/Images/logo-revert.png", alt="HasHaber", id="main-logo")
+      a(href="", id="dark-light-theme-button") &#x1F315
+
+      #date-clock-div
+        span#date-span
+        span#clock-span
+
+      script.
+        var clockSpan = document.getElementById("clock-span");
+        var dateSpan = document.getElementById("date-span")
+        date_time()
+
+        function date_time() {
+          var date = new Date();
+          var day = date.getDate();
+          var month = date.getMonth() + 1;
+          var year = date.getFullYear()
+          var second = date.getSeconds();
+          var minute = date.getMinutes();
+          var hour = date.getHours();
+
+          dateSpan.textContent =
+            ("0" + day).substr(-2) + "-" + ("0" + month).substr(-2) + "-" + year;
+          clockSpan.textContent =
+            ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
+        }
+        setInterval(date_time, 1000);
+    
+    form(action="/api/news-posting-page", method="post")
+      .news-posting-page
+        input(id="news-posting-title", name="title", type="text", placeholder="Title")
+        br
+        div
+          input(id="news-posting-url", name="url", type="url", placeholder="Image URL:'https://...' ", size="30px", pattern="https://.*", required)
+          input(id="news-posting-url-button", type="submit", value="Upload Image")
+        br
+        textarea(id="news-posting-content", name="content", placeholder="Write here...", cols="100", rows="20", required)
+      
+      .news-posting-page
+        input(id="news-posting-post-button", type="submit", value="Post")
