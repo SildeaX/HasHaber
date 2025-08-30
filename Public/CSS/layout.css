@@ -23,6 +23,23 @@ li {
     align-self: anchor-center;
 }
 
+#date-clock-div{
+    width: fit-content;
+    height: 100px;
+    justify-content: space-evenly;
+    flex-direction: column;
+    display: flex;
+    margin: 20px;
+}
+
+#date-span{
+    width: fit-content;
+}
+
+#clock-span{
+    width: fit-content;
+}
+
 .register-login-upper-right-corner {
     justify-content: right;
     align-items: end;
@@ -84,6 +101,37 @@ li {
     margin-bottom: 12%;
 }
 
+#new-page-comment-section{
+    width: 70%;
+    resize: none;
+    border: none;
+    background-color: whitesmoke;
+    height: fit-content;
+}
+
+#new-page-comment-section-upload-button{
+    width: fit-content;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 5%;
+    margin-left: 62%;
+}
+
+#new-page-comment-section-div{
+    width: 50%;
+    margin-left: 1%;
+}
+
+.comment-section-image-username-span{
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    gap: 5px;
+}
+
 #news-posting-content{
     resize: vertical;
     width: 40%;
@@ -100,3 +148,7 @@ li {
     width: 5%;
 }
 
+ul{
+    padding: 0;
+    margin: 0;
+}
