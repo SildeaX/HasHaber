@@ -27,7 +27,6 @@ app.use(session({
     cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
 }));
 
-app.use(express.static("html"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /*
@@ -118,7 +117,7 @@ async function writeNewsCounter(newId) {
 app.post("/api/register", async function (req, res) {
     const { name, surname, email, password, confirmPassword, isLoggedIn } = req.body;
 
-    if (!name || !surname || !email || !password || !confirmPassword) {
+    if (!name.trim().length || !surname.trim().length || !email.trim().length || !password.trim().length || !confirmPassword.trim().length) {
         return res.send('Please fill in each part.');
     }
 
@@ -156,6 +155,8 @@ app.post("/api/register", async function (req, res) {
 //Login Page
 app.post("/api/login", async function (req, res) {
     const { email, password } = req.body;
+
+    req.body = req.body.map(e => e.trim());
 
     if (!email || !password) {
         return res.send('Please fill in each part.');
@@ -218,6 +219,8 @@ app.post("/api/logout", async function (req, res) {
 //News Posting Function
 app.post("/api/news-posting-page", async function (req, res) {
     const { title, content, url } = req.body;
+
+    req.body = req.body.map(e => e.trim());
 
     let newsDatabase = await readNewsDB();
 
