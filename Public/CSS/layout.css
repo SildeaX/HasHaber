@@ -31,10 +31,10 @@ li {
 #date-clock-div{
     width: fit-content;
     height: 100px;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: column;
     display: flex;
-    margin: 20px;
+    margin: 5px;
 }
 
 #date-span{

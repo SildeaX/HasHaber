@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-var pug = require('pug');
+const pug = require('pug');
 const fs = require('fs').promises;
-var uuidv4 = require('uuid').v4;
-var session = require("express-session");
+const uuidv4 = require('uuid').v4;
+const session = require("express-session");
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -134,7 +134,7 @@ app.post("/api/register", async function (req, res) {
         return res.send('Please fill in each part.');
     }
 
-    else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
         return res.send("Passwords didn't match.");
     }
 

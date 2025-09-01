@@ -39,14 +39,14 @@ html
 
     
     .register-login-upper-right-corner
-      if !isLoggedIn
+      if isLoggedIn === false || typeof isLoggedIn === 'undefined' || isLoggedIn === null
         a(href="/login")
           input(type="button", value="Login", id="login-upper-right")
         a(href="/register")
-          input(type="button", value="Register", id="register-upper-right")
-      if isLoggedIn
+          input(type="button", value="Register", id="register-upper-right") 
+      if isLoggedIn === true
         form(action="/api/logout", method="post")
-          input(type="button", name="logout", value="Logout", id="logout-button")
+          input(type="submit", name="logout", value="Logout", id="logout-button")
 
     .post-news-button
       a(href="/news-posting-page")
