@@ -1,0 +1,77 @@
+doctype html
+html
+  head
+    meta
+    link(rel="stylesheet", href="/CSS/main.css")
+  
+  body
+    #top-bar
+      a(href="/")
+        img(src="/Images/logo-revert.png", alt="HasHaber", id="main-logo")
+      input(type="text", placeholder="Search...", id="search-bar")
+      a(href="", id="search-button") &#x1F50D
+      a(href="", id="dark-light-theme-button") &#x1F315
+
+      #date-clock-div
+        span#date-span
+        span#clock-span
+
+      script.
+        var clockSpan = document.getElementById("clock-span");
+        var dateSpan = document.getElementById("date-span")
+        date_time()
+
+        function date_time() {
+          var date = new Date();
+          var day = date.getDate();
+          var month = date.getMonth() + 1;
+          var year = date.getFullYear()
+          var second = date.getSeconds();
+          var minute = date.getMinutes();
+          var hour = date.getHours();
+
+          dateSpan.textContent =
+            ("0" + day).substr(-2) + "-" + ("0" + month).substr(-2) + "-" + year;
+          clockSpan.textContent =
+            ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
+        }
+        setInterval(date_time, 1000);
+
+    
+    .register-login-upper-right-corner
+      a(href="login")
+        input(type="button", value="Login", id="login-upper-right")
+      form(action="/api/logout", method="post")
+        input(type="button", name="logout", value="Logout", id="logout-button")
+      a(href="register")
+        input(type="button", value="Register", id="register-upper-right")
+    
+    .post-news-button
+      a(href="news-posting-page")
+        input(type="button", value="Post News", id="post-news-upper-right")
+    
+    .main-image
+      ul
+        li
+          img(src="/Images/ked1.jfif", alt="Error", class="main-image")
+          h2  Kedi Haber 
+          p ねこってすごくかわいいいきものですよね！かわいいくてたまらないです
+
+    div#new-page-comment-section-div
+      p(style="font-weight: 900;") Comments
+      textarea#new-page-comment-section(placeholder="Write Comment Here...", name="commentText", rows="4", minlength="1", maxlength="300")
+      input#new-page-comment-section-upload-button(type="submit", value="Add Comment") 
+
+      ul
+        li.comment-section-li
+          .comment-section-div
+            span.comment-section-image-username-span
+              img#comment-avatar-image(src='Images/GuestAvatar.png', alt="profile")
+              p.comment-section-username-p Username1
+            p.comment-section-comment-p First comment!
+        li.comment-section-li
+          .comment-section-div
+            span.comment-section-image-username-span
+              img#comment-avatar-image(src='Images/GuestAvatar.png', alt="profile")
+              p.comment-section-username-p Username2
+            p.comment-section-comment-p Second comment!

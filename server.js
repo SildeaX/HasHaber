@@ -15,10 +15,10 @@ const app = express();
 
 // view engine
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'Views'));
+app.set('views', 'Views');
 
 // static files
-app.use(express.static(path.join(__dirname, 'Public')));
+app.use(express.static('Public'));
 
 app.use(session({
     secret: 'sample-secret',
@@ -35,23 +35,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 */
 
 app.get("/login", function (req, res) {
-    res.sendFile(path.join(__dirname, "Views", "login.html"));
+    res.render("login.pug");
 });
 
 app.get("/register", function (req, res) {
-    res.sendFile(path.join(__dirname, "Views", "register.html"));
+    res.render("register.pug");
 });
 
 app.get("/news-posting-page", function (req, res) {
-    res.sendFile(path.join(__dirname, "Views", "news-posting-page.html"));
+    res.render("news-posting-page.pug");
 });
 
 app.get("/news-page", function (req, res) {
-    res.sendFile(path.join(__dirname, "Views", "news-page.html"));
+    res.render("news-page.pug");
 });
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "Views", "main.html"));
+    res.render("main.pug");
 });
 
 /*

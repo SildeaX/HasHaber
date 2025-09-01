@@ -35,3 +35,7 @@
     margin-left: auto;
     text-decoration: none;
 }
+
+#comment-avatar-image{
+    height: 35px;
+}
