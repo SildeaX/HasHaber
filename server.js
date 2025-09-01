@@ -29,6 +29,8 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(postTrimmer);
+
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
@@ -108,6 +110,17 @@ async function writeNewsCounter(newId) {
     );
 }
 
+// Middleware to trim whitespace from POST request body
+function postTrimmer(req, res, next) {
+    if (req.method === 'POST') {
+        for (const [key, value] of Object.entries(req.body)) {
+            if (typeof (value) === 'string')
+                req.body[key] = value;
+        }
+    }
+    next();
+}
+
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
@@ -155,8 +168,6 @@ app.post("/api/register", async function (req, res) {
 //Login Page
 app.post("/api/login", async function (req, res) {
     const { email, password } = req.body;
-
-    req.body = req.body.map(e => e.trim());
 
     if (!email || !password) {
         return res.send('Please fill in each part.');
@@ -220,15 +231,13 @@ app.post("/api/logout", async function (req, res) {
 app.post("/api/news-posting-page", async function (req, res) {
     const { title, content, url } = req.body;
 
-    req.body = req.body.map(e => e.trim());
-
     let newsDatabase = await readNewsDB();
 
-    if (!req.session.user || !req.session.user.isLoggedIn) {
+    if (req?.session?.user?.isLoggedIn !== true) {
         return res.send("You must be logged in to post news.");
     }
 
-    if (!title || !content || !url) {
+    if (!title.trim().length || !content.trim().length || !url.trim().length) {
         return res.send("Please fill in each part.");
     }
 
@@ -242,7 +251,7 @@ app.post("/api/news-posting-page", async function (req, res) {
         title: title,
         content: content,
         url: url,
-        author: req.session.user.email,
+        author: req.session.user.uuid,
         createdAt: new Date().toISOString()
     };
 
@@ -251,7 +260,6 @@ app.post("/api/news-posting-page", async function (req, res) {
 
     return res.redirect('/');
 });
-
 
 // Start the server
 const PORT = 3000;

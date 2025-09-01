@@ -48,3 +48,11 @@ html(lang="en")
       
       .news-posting-page
         input(id="news-posting-post-button", type="submit", value="Post")
+
+
+    #preview(style="flex:1; border:1px solid #ccc; padding:10px;")
+        h2#preview-title Title will be displayed here
+        img#preview-image(src="" alt="" style="max-width:100%; display:none;")
+        p#preview-content Content will be displayed here
+    
+    script(src='/JS/preview.js')

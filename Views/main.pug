@@ -39,13 +39,15 @@ html
 
     
     .register-login-upper-right-corner
-      a(href="/login")
-        input(type="button", value="Login", id="login-upper-right")
-      form(action="/api/logout", method="post")
-        input(type="button", name="logout", value="Logout", id="logout-button")
-      a(href="/register")
-        input(type="button", value="Register", id="register-upper-right")
-    
+      if !isLoggedIn
+        a(href="/login")
+          input(type="button", value="Login", id="login-upper-right")
+        a(href="/register")
+          input(type="button", value="Register", id="register-upper-right")
+      if isLoggedIn
+        form(action="/api/logout", method="post")
+          input(type="button", name="logout", value="Logout", id="logout-button")
+
     .post-news-button
       a(href="/news-posting-page")
         input(type="button", value="Post News", id="post-news-upper-right")
