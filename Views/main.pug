@@ -45,10 +45,13 @@ html
         form(action="/register" method="get") 
           input(type="submit", value="Register", id="register-upper-right") 
       else
-        form(action="/api/logout", method="post")
-          input(type="submit", name="logout", value="Logout", id="logout-button")
         #welcome-message
           print Welcome back #{user.name + " " + user.surname}!
+        #logout-upper-right-corner
+        form(action="/api/logout", method="post")
+          button#logout-button(type="submit")
+            img(src="/Images/logout.png", alt="Logout Icon" width="13px" height="13px")
+            | Logout
 
     .post-news-button
       if user && user.isLoggedIn === true

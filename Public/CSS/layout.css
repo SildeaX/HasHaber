@@ -1,4 +1,4 @@
-#top-bar{
+#top-bar {
     display: flex;
 }
 
@@ -7,7 +7,7 @@ body {
     padding: 0%;
 }
 
-ul{
+ul {
     padding: 0;
     margin: 0;
 }
@@ -28,7 +28,7 @@ li {
     align-self: anchor-center;
 }
 
-#date-clock-div{
+#date-clock-div {
     width: fit-content;
     height: 100px;
     justify-content: center;
@@ -37,11 +37,11 @@ li {
     margin: 5px;
 }
 
-#date-span{
+#date-span {
     width: fit-content;
 }
 
-#clock-span{
+#clock-span {
     width: fit-content;
 }
 
@@ -49,6 +49,25 @@ li {
     justify-content: right;
     align-items: end;
     display: flex;
+}
+
+#logout-upper-right-corner {
+    display: flex;
+    align-items: center;
+    margin: 0px 25px 0px 0px;
+}
+
+#logout-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin: 3px;
 }
 
 .post-news-button {
@@ -106,7 +125,7 @@ li {
     margin-bottom: 12%;
 }
 
-#new-page-comment-section{
+#new-page-comment-section {
     width: 70%;
     resize: none;
     border: none;
@@ -114,7 +133,7 @@ li {
     height: fit-content;
 }
 
-#new-page-comment-section-upload-button{
+#new-page-comment-section-upload-button {
     width: fit-content;
     height: 25px;
     border: none;
@@ -125,42 +144,42 @@ li {
     margin-left: 62%;
 }
 
-#new-page-comment-section-div{
+#new-page-comment-section-div {
     width: 50%;
     margin-left: 1%;
 }
 
-.comment-section-image-username-span{
+.comment-section-image-username-span {
     align-items: center;
     flex-direction: row;
     display: flex;
     gap: 5px;
 }
 
-#news-posting-content{
+#news-posting-content {
     resize: vertical;
     width: 40%;
     height: 300px;
 }
 
-#news-posting-page-image-button{
+#news-posting-page-image-button {
     font-size: medium;
 }
 
-#news-posting-post-button{
+#news-posting-post-button {
     margin-top: 1%;
     font-size: medium;
     width: 5%;
 }
 
-#welcome-message{
+#welcome-message {
     margin-right: auto;
     font-weight: 600;
     align-self: center;
     font-size: x-large;
 }
 
-#preview{
+#preview {
     margin-top: 4%;
     width: 45%;
     border: 1px solid #ccc;
