@@ -68,7 +68,7 @@ app.get("/api/news-page/:newsID", async function (req, res) {
         return res.status(404).send("Cannot find any news.");
     }
 
-    return res.render("news-page.pug", { mainNews: newsData, user: req.session.user || undefined });
+    return res.render("news-page", { mainNews: newsData, user: req.session.user || undefined });
 });
 
 /*

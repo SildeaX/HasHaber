@@ -59,31 +59,27 @@ html
       ul
         li
         each currentNews in mainNews
-            a.main-page-news(href="/api/news-page/" + currentNews.id)
+            a.main-page-news(href="/api/news-page/" + currentNews.newsID)
               div
                 img.main-image(src= currentNews.url, alt="Image cannot be loaded")
                 h2.main-page-news-title #{currentNews.title}
                 p.main-page-news-content #{currentNews.content.substring(0, 25)}...
         div
-          a(href="/news-page")
-            img(src="/Images/ked2.jfif", alt="Error", class="main-image")
+          img(src="/Images/ked2.jfif", alt="Error", class="main-image")
           h2.main-page-news-title  Cat News 2
           p.main-page-news-content Cat caught to the cameras...
           
         div
-          a(href="/news-page")
-            img(src="/Images/ked3.jfif", alt="Error", class="main-image")
+          img(src="/Images/ked3.jfif", alt="Error", class="main-image")
           h2.main-page-news-title  Cat News 3
           p.main-page-news-content Cat found sleeping like he is some kind of prophet...
           
         div
-          a(href="/news-page")
-            img(src="/Images/ked4.jfif", alt="Error", class="main-image")
+          img(src="/Images/ked4.jfif", alt="Error", class="main-image")
           h2.main-page-news-title  Cat News 4
           p.main-page-news-content Cat sleeping with his pillow, look how cute it is...
           
         div
-          a(href="/news-page")
-            img(src="/Images/ked5.jfif", alt="Error", class="main-image")
+          img(src="/Images/ked5.jfif", alt="Error", class="main-image")
           h2.main-page-news-title  Cat News 5
           p.main-page-news-content Cat cosplaying as Crazy Dave from PvZ (Plants versus Zombies) by wearing a bag on his head...

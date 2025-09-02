@@ -56,9 +56,9 @@ html
     .main-image
       ul
         li
-          img.main-image(src= currentNews.url, alt= "Image cannot be loaded")
-          h2.title #{currentNews.title}
-          p.content #{currentNews.content}
+          img.main-image(src= mainNews.url, alt= "Image cannot be loaded")
+          h2.title #{mainNews.title}
+          p.content #{mainNews.content}
 
     div#new-page-comment-section-div
       p(style="font-weight: 900;") Comments
@@ -69,12 +69,12 @@ html
         li.comment-section-li
           .comment-section-div
             span.comment-section-image-username-span
-              img#comment-avatar-image(src='Images/GuestAvatar.png', alt="profile")
+              img#comment-avatar-image(src='/Images/GuestAvatar.png', alt="profile")
               p.comment-section-username-p Username1
             p.comment-section-comment-p First comment!
         li.comment-section-li
           .comment-section-div
             span.comment-section-image-username-span
-              img#comment-avatar-image(src='Images/GuestAvatar.png', alt="profile")
+              img#comment-avatar-image(src='/Images/GuestAvatar.png', alt="profile")
               p.comment-section-username-p Username2
             p.comment-section-comment-p Second comment!
