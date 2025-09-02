@@ -6,6 +6,7 @@ const uuidv4 = require('uuid').v4;
 const session = require("express-session");
 const express = require('express');
 const path = require('path');
+const { save } = require('fs');
 const app = express();
 
 /*
@@ -52,8 +53,22 @@ app.get("/news-page", function (req, res) {
     res.render("news-page.pug");
 });
 
-app.get("/", function (req, res) {
-    res.render("main.pug");
+app.get("/", async function (req, res) {
+    let allNews = await fetchNewsDB();
+    currentNews = allNews.slice(-5).reverse();
+    res.render("main.pug", { mainNews: currentNews, user: req.session.user || undefined });
+});
+
+app.get("/api/news-page/:newsID", async function (req, res) {
+    const newsDatabase = await fetchNewsDB();
+    const newsID = parseInt(req.params.newsID, 10);
+    const newsData = newsDatabase.find(currentNews => currentNews.newsID === newsID);
+
+    if (newsData === undefined) {
+        return res.status(404).send("Cannot find any news.");
+    }
+
+    return res.render("news-page.pug", { mainNews: newsData, user: req.session.user || undefined });
 });
 
 /*
@@ -61,8 +76,8 @@ app.get("/", function (req, res) {
   //////////////////////////////////////////////////////////////////////
 */
 
-// Read existing users asynchronously
-async function readUserDB() {
+// Fetch existing users asynchronously
+async function fetchUserDB() {
     try {
         const data = await fs.readFile(path.join(__dirname, 'Database', 'userDB.json'), 'utf8');
         return JSON.parse(data);
@@ -71,13 +86,13 @@ async function readUserDB() {
     }
 }
 
-// Write user data asynchronously
-async function writeUserDB(data) {
+// Save user data asynchronously
+async function saveUserDB(data) {
     await fs.writeFile(path.join(__dirname, 'Database', 'userDB.json'), JSON.stringify(data, null, 2), 'utf8');
 }
 
-// Read existing news synchronously
-async function readNewsDB() {
+// Fetch existing news asynchronously
+async function fetchNewsDB() {
     try {
         const data = await fs.readFile(path.join(__dirname, 'Database', 'newsDB.json'), 'utf8');
         return JSON.parse(data);
@@ -86,13 +101,13 @@ async function readNewsDB() {
     }
 }
 
-// Write news data synchronously
-async function writeNewsDB(data) {
+// Save news data asynchronously
+async function saveNewsDB(data) {
     await fs.writeFile(path.join(__dirname, 'Database', 'newsDB.json'), JSON.stringify(data, null, 2), 'utf8');
 }
 
-// Read news counter
-async function readNewsCounter() {
+// Fetch news counter
+async function fetchNewsCounter() {
     try {
         const data = await fs.readFile(path.join(__dirname, 'Database', 'newsCounter.json'), 'utf8');
         return JSON.parse(data).lastId;
@@ -102,7 +117,7 @@ async function readNewsCounter() {
 }
 
 // Write news counter
-async function writeNewsCounter(newId) {
+async function saveNewsCounter(newId) {
     await fs.writeFile(
         path.join(__dirname, 'Database', 'newsCounter.json'),
         JSON.stringify({ lastId: newId }, null, 2),
@@ -138,7 +153,7 @@ app.post("/api/register", async function (req, res) {
         return res.send("Passwords didn't match.");
     }
 
-    let userDatabase = await readUserDB();
+    let userDatabase = await fetchUserDB();
 
     if (userDatabase.some(user => user.email === email)) {
         return res.send("This email is already registered.");
@@ -147,7 +162,7 @@ app.post("/api/register", async function (req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = {
-        uuid: uuidv4(),
+        id: uuidv4(),
         name: name,
         surname: surname,
         email: email,
@@ -156,7 +171,7 @@ app.post("/api/register", async function (req, res) {
     };
 
     userDatabase.push(newUser);
-    await writeUserDB(userDatabase);
+    await saveUserDB(userDatabase);
     return res.redirect('/');
 });
 
@@ -173,7 +188,7 @@ app.post("/api/login", async function (req, res) {
         return res.send('Please fill in each part.');
     }
 
-    const userDatabase = await readUserDB();
+    const userDatabase = await fetchUserDB();
     const user = userDatabase.find(user => user.email === email);
 
     if (!user) {
@@ -187,7 +202,7 @@ app.post("/api/login", async function (req, res) {
     }
 
     req.session.user = {
-        uuid: user.uuid,
+        id: user.id,
         name: user.name,
         surname: user.surname,
         email: user.email,
@@ -198,7 +213,7 @@ app.post("/api/login", async function (req, res) {
     const userIndex = userDatabase.findIndex(u => u.email === email);
     console.log(userIndex);
     userDatabase[userIndex].isLoggedIn = true;
-    await writeUserDB(userDatabase);
+    await saveUserDB(userDatabase);
 
     return res.redirect('/');
 });
@@ -211,11 +226,11 @@ app.post("/api/login", async function (req, res) {
 //Logout Function
 app.post("/api/logout", async function (req, res) {
     if (req.session.user) {
-        let userDatabase = await readUserDB();
-        const userIndex = userDatabase.findIndex(user => user.uuid === req.session.user.uuid);
+        let userDatabase = await fetchUserDB();
+        const userIndex = userDatabase.findIndex(user => user.id === req.session.user.id);
         if (userIndex !== -1) {
             userDatabase[userIndex].isLoggedIn = false;
-            await writeUserDB(userDatabase);
+            await saveUserDB(userDatabase);
         }
         req.session.destroy();
     }
@@ -231,7 +246,7 @@ app.post("/api/logout", async function (req, res) {
 app.post("/api/news-posting-page", async function (req, res) {
     const { title, content, url } = req.body;
 
-    let newsDatabase = await readNewsDB();
+    let newsDatabase = await fetchNewsDB();
 
     if (req?.session?.user?.isLoggedIn !== true) {
         return res.send("You must be logged in to post news.");
@@ -242,21 +257,21 @@ app.post("/api/news-posting-page", async function (req, res) {
     }
 
     // New ID generation using newsCounter.json
-    let lastId = await readNewsCounter();
+    let lastId = await fetchNewsCounter();
     let newsID = lastId + 1;
-    await writeNewsCounter(newsID);
+    await saveNewsCounter(newsID);
 
     const newsData = {
-        id: newsID,
+        newsID: newsID,
         title: title,
         content: content,
         url: url,
-        author: req.session.user.uuid,
+        author: req.session.user.id,
         createdAt: new Date().toISOString()
     };
 
     newsDatabase.push(newsData);
-    await writeNewsDB(newsDatabase);
+    await saveNewsDB(newsDatabase);
 
     return res.redirect('/');
 });

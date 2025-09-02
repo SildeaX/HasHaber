@@ -39,28 +39,31 @@ html
 
     
     .register-login-upper-right-corner
-      a(href="login")
-        input(type="button", value="Login", id="login-upper-right")
-      form(action="/api/logout", method="post")
-        input(type="button", name="logout", value="Logout", id="logout-button")
-      a(href="register")
-        input(type="button", value="Register", id="register-upper-right")
+      if !user || user.isLoggedIn === false
+        form(action="/login" method="get") 
+          input(type="submit", value="Login", id="login-upper-right")
+        form(action="/register" method="get") 
+          input(type="submit", value="Register", id="register-upper-right") 
+      else
+        form(action="/api/logout", method="post")
+          input(type="submit", name="logout", value="Logout", id="logout-button")
     
     .post-news-button
-      a(href="news-posting-page")
-        input(type="button", value="Post News", id="post-news-upper-right")
+      if user && user.isLoggedIn === true
+        form(action="/news-posting-page" method="get")
+          input(type="submit", value="Post News", id="post-news-upper-right")
     
     .main-image
       ul
         li
-          img(src="/Images/ked1.jfif", alt="Error", class="main-image")
-          h2  Kedi Haber 
-          p ねこってすごくかわいいいきものですよね！かわいいくてたまらないです
+          img.main-image(src= currentNews.url, alt= "Image cannot be loaded")
+          h2.title #{currentNews.title}
+          p.content #{currentNews.content}
 
     div#new-page-comment-section-div
       p(style="font-weight: 900;") Comments
-      textarea#new-page-comment-section(placeholder="Write Comment Here...", name="commentText", rows="4", minlength="1", maxlength="300")
-      input#new-page-comment-section-upload-button(type="submit", value="Add Comment") 
+      textarea#new-page-comment-section(placeholder="Write a comment...", name="commentText", rows="4", minlength="1", maxlength="300")
+      input#new-page-comment-section-upload-button(type="submit", value="Comment") 
 
       ul
         li.comment-section-li

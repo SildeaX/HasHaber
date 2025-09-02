@@ -153,6 +153,13 @@ li {
     width: 5%;
 }
 
+#welcome-message{
+    margin-right: auto;
+    font-weight: 600;
+    align-self: center;
+    font-size: x-large;
+}
+
 #preview{
     margin-top: 4%;
     width: 45%;

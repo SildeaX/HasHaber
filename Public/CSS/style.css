@@ -2,7 +2,8 @@
     background-color: black;
 }
 
-#date-span, #clock-span {
+#date-span,
+#clock-span {
     color: white;
 }
 
@@ -190,4 +191,12 @@
     text-decoration: none;
     color: black;
     font-size: medium;
+}
+
+a,
+a:hover,
+a:visited,
+a:active{
+text-decoration: none;
+color: inherit;
 }

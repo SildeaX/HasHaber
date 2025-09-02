@@ -39,48 +39,51 @@ html
 
     
     .register-login-upper-right-corner
-      if isLoggedIn === false || typeof isLoggedIn === 'undefined' || isLoggedIn === null
-        a(href="/login")
-          input(type="button", value="Login", id="login-upper-right")
-        a(href="/register")
-          input(type="button", value="Register", id="register-upper-right") 
-      if isLoggedIn === true
+      if !user || user.isLoggedIn === false
+        form(action="/login" method="get") 
+          input(type="submit", value="Login", id="login-upper-right")
+        form(action="/register" method="get") 
+          input(type="submit", value="Register", id="register-upper-right") 
+      else
         form(action="/api/logout", method="post")
           input(type="submit", name="logout", value="Logout", id="logout-button")
+        #welcome-message
+          print Welcome back #{user.name + " " + user.surname}!
 
     .post-news-button
-      a(href="/news-posting-page")
-        input(type="button", value="Post News", id="post-news-upper-right")
+      if user && user.isLoggedIn === true
+        form(action="/news-posting-page" method="get")
+          input(type="submit", value="Post News", id="post-news-upper-right")
     
     .main-image
       ul
         li
-          div
-            a(href="/news-page")
-              img(src="/Images/ked1.jfif", alt="Error", class="main-image")
-            h2.main-page-news-title  Cat News 1
-            p.main-page-news-content Cat looks to the right, but for what purpose?..
+        each currentNews in mainNews
+            a.main-page-news(href="/api/news-page/" + currentNews.id)
+              div
+                img.main-image(src= currentNews.url, alt="Image cannot be loaded")
+                h2.main-page-news-title #{currentNews.title}
+                p.main-page-news-content #{currentNews.content.substring(0, 25)}...
+        div
+          a(href="/news-page")
+            img(src="/Images/ked2.jfif", alt="Error", class="main-image")
+          h2.main-page-news-title  Cat News 2
+          p.main-page-news-content Cat caught to the cameras...
           
-          div
-            a(href="/news-page")
-              img(src="/Images/ked2.jfif", alt="Error", class="main-image")
-            h2.main-page-news-title  Cat News 2
-            p.main-page-news-content Cat caught to the cameras...
+        div
+          a(href="/news-page")
+            img(src="/Images/ked3.jfif", alt="Error", class="main-image")
+          h2.main-page-news-title  Cat News 3
+          p.main-page-news-content Cat found sleeping like he is some kind of prophet...
           
-          div
-            a(href="/news-page")
-              img(src="/Images/ked3.jfif", alt="Error", class="main-image")
-            h2.main-page-news-title  Cat News 3
-            p.main-page-news-content Cat found sleeping like he is some kind of prophet...
+        div
+          a(href="/news-page")
+            img(src="/Images/ked4.jfif", alt="Error", class="main-image")
+          h2.main-page-news-title  Cat News 4
+          p.main-page-news-content Cat sleeping with his pillow, look how cute it is...
           
-          div
-            a(href="/news-page")
-              img(src="/Images/ked4.jfif", alt="Error", class="main-image")
-            h2.main-page-news-title  Cat News 4
-            p.main-page-news-content Cat sleeping with his pillow, look how cute it is...
-          
-          div
-            a(href="/news-page")
-              img(src="/Images/ked5.jfif", alt="Error", class="main-image")
-            h2.main-page-news-title  Cat News 5
-            p.main-page-news-content Cat cosplaying as Crazy Dave from PvZ (Plants versus Zombies) by wearing a bag on his head...
+        div
+          a(href="/news-page")
+            img(src="/Images/ked5.jfif", alt="Error", class="main-image")
+          h2.main-page-news-title  Cat News 5
+          p.main-page-news-content Cat cosplaying as Crazy Dave from PvZ (Plants versus Zombies) by wearing a bag on his head...
