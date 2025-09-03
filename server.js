@@ -7,7 +7,9 @@ const session = require("express-session");
 const express = require('express');
 const path = require('path');
 const { save } = require('fs');
+const cookieParser = require('cookie-parser');
 const app = express();
+const crypto = require('crypto');
 
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -21,6 +23,8 @@ app.set('views', 'Views');
 // static files
 app.use(express.static('Public'));
 
+app.use(cookieParser());
+
 app.use(session({
     secret: 'sample-secret',
     resave: false,
@@ -30,7 +34,23 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(postTrimmer);
+// Middleware to check for rememberMe cookie
+app.use(async (req, res, next) => {
+    if (!req.session.user && req.cookies.rememberMe) {
+        const userDatabase = await fetchUserDB();
+        const user = userDatabase.find(u => u.rememberToken === req.cookies.rememberMe);
+        if (user) {
+            req.session.user = {
+                id: user.id,
+                name: user.name,
+                surname: user.surname,
+                email: user.email,
+                isLoggedIn: true
+            }
+        }
+    }
+    next();
+});
 
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -52,7 +72,6 @@ app.get("/news-posting-page", function (req, res) {
 app.get("/news-page", function (req, res) {
     res.render("news-page.pug");
 });
-
 app.get("/", async function (req, res) {
     let allNews = await fetchNewsDB();
     currentNews = allNews.slice(-5).reverse();
@@ -69,6 +88,26 @@ app.get("/api/news-page/:newsID", async function (req, res) {
     }
 
     return res.render("news-page", { mainNews: newsData, user: req.session.user || undefined });
+});
+
+app.get("/set-cookie", (req, res) => {
+    res.cookie("rememberMe", "yes", {
+        maxAge: 1000 * 60 * 60, //1 hour
+        httpOnly: true,
+        secure: false
+    });
+    res.send("Cookie has been set");
+});
+
+app.get("/get-cookie", (req, res) => {
+    const rememberMe = req.cookies.rememberMe;
+    console.log(req.cookies.rememberMe);
+    res.send("Cookie: " + rememberMe);
+});
+
+app.get("/clear-cookie", (req, res) => {
+    res.clearCookie("rememberMe");
+    res.send("Cookie has been cleared");
 });
 
 /*
@@ -125,17 +164,6 @@ async function saveNewsCounter(newId) {
     );
 }
 
-// Middleware to trim whitespace from POST request body
-function postTrimmer(req, res, next) {
-    if (req.method === 'POST') {
-        for (const [key, value] of Object.entries(req.body)) {
-            if (typeof (value) === 'string')
-                req.body[key] = value;
-        }
-    }
-    next();
-}
-
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
@@ -145,7 +173,7 @@ function postTrimmer(req, res, next) {
 app.post("/api/register", async function (req, res) {
     const { name, surname, email, password, confirmPassword, isLoggedIn } = req.body;
 
-    if (!name.trim().length || !surname.trim().length || !email.trim().length || !password.trim().length || !confirmPassword.trim().length) {
+    if (!name.trim() || !surname.trim().length || !email.trim().length || !password.trim().length || !confirmPassword.trim().length) {
         return res.send('Please fill in each part.');
     }
 
@@ -172,6 +200,30 @@ app.post("/api/register", async function (req, res) {
 
     userDatabase.push(newUser);
     await saveUserDB(userDatabase);
+
+    const user = userDatabase.find(user => user.email === email);
+
+    //Session
+    req.session.user = {
+        id: user.id,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        isLoggedIn: true
+    }
+
+    //Token and Cookie
+    const token = crypto.randomBytes(64).toString('hex');
+    user.rememberToken = token;
+    req.session.save()
+
+    res.cookie("rememberMe", token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax'
+    });
+
     return res.redirect('/');
 });
 
@@ -201,6 +253,7 @@ app.post("/api/login", async function (req, res) {
         return res.send("Wrong password.");
     }
 
+    //Session
     req.session.user = {
         id: user.id,
         name: user.name,
@@ -208,8 +261,20 @@ app.post("/api/login", async function (req, res) {
         email: user.email,
         isLoggedIn: true
     }
+
+    //Token and Cookie
+    const token = crypto.randomBytes(64).toString('hex');
+    user.rememberToken = token;
     req.session.save()
 
+    res.cookie("rememberMe", token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax'
+    });
+
+    // Update isLoggedIn status in user database
     const userIndex = userDatabase.findIndex(u => u.email === email);
     console.log(userIndex);
     userDatabase[userIndex].isLoggedIn = true;
@@ -234,6 +299,7 @@ app.post("/api/logout", async function (req, res) {
         }
         req.session.destroy();
     }
+    res.clearCookie("rememberMe");
     res.redirect("/");
 });
 
