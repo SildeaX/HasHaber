@@ -10,17 +10,18 @@ const { save } = require('fs');
 const cookieParser = require('cookie-parser');
 const app = express();
 const crypto = require('crypto');
+const flash = require('connect-flash');
 
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
 */
 
-// view engine
+// View engine
 app.set('view engine', 'pug');
 app.set('views', 'Views');
 
-// static files
+// Static files
 app.use(express.static('Public'));
 
 app.use(cookieParser());
@@ -33,6 +34,8 @@ app.use(session({
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(flash());
 
 // Middleware to check for rememberMe cookie
 app.use(async (req, res, next) => {
@@ -92,7 +95,7 @@ app.get("/api/news-page/:newsID", async function (req, res) {
 
 app.get("/set-cookie", (req, res) => {
     res.cookie("rememberMe", "yes", {
-        maxAge: 1000 * 60 * 60, //1 hour
+        maxAge: 1000 * 60 * 60 * 24, // 24 hour
         httpOnly: true,
         secure: false
     });
@@ -164,16 +167,22 @@ async function saveNewsCounter(newId) {
     );
 }
 
+function inputCheck(input) {
+    if (!input || input.trim().length === 0) return true; // tamamen boşsa
+    // Birden fazla boşluk arka arkaya varsa
+    return /\s{2,}/.test(input);
+}
+
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
 */
 
-//Register Page
+// Register Page
 app.post("/api/register", async function (req, res) {
     const { name, surname, email, password, confirmPassword, isLoggedIn } = req.body;
 
-    if (!name.trim() || !surname.trim().length || !email.trim().length || !password.trim().length || !confirmPassword.trim().length) {
+    if (inputCheck(name) || inputCheck(surname) || inputCheck(email) || inputCheck(password) || inputCheck(confirmPassword)) {
         return res.send('Please fill in each part.');
     }
 
@@ -203,7 +212,7 @@ app.post("/api/register", async function (req, res) {
 
     const user = userDatabase.find(user => user.email === email);
 
-    //Session
+    // Session
     req.session.user = {
         id: user.id,
         name: user.name,
@@ -212,18 +221,21 @@ app.post("/api/register", async function (req, res) {
         isLoggedIn: true
     }
 
-    //Token and Cookie
+    // Token and Cookie
     const token = crypto.randomBytes(64).toString('hex');
     user.rememberToken = token;
     req.session.save()
 
     res.cookie("rememberMe", token, {
-        maxAge: 60 * 60 * 1000,
+        maxAge: 60 * 60 * 1000 * 24,// 24 hours    
         httpOnly: true,
         secure: false,
         sameSite: 'lax'
     });
 
+    await saveUserDB(userDatabase);
+
+    flash('success', 'Registration successful!');
     return res.redirect('/');
 });
 
@@ -232,7 +244,7 @@ app.post("/api/register", async function (req, res) {
   //////////////////////////////////////////////////////////////////////
 */
 
-//Login Page
+// Login Page
 app.post("/api/login", async function (req, res) {
     const { email, password } = req.body;
 
@@ -253,7 +265,7 @@ app.post("/api/login", async function (req, res) {
         return res.send("Wrong password.");
     }
 
-    //Session
+    // Session
     req.session.user = {
         id: user.id,
         name: user.name,
@@ -262,13 +274,13 @@ app.post("/api/login", async function (req, res) {
         isLoggedIn: true
     }
 
-    //Token and Cookie
+    // Token and Cookie
     const token = crypto.randomBytes(64).toString('hex');
     user.rememberToken = token;
     req.session.save()
 
     res.cookie("rememberMe", token, {
-        maxAge: 60 * 60 * 1000,
+        maxAge: 60 * 60 * 1000 * 24,// 24 hours
         httpOnly: true,
         secure: false,
         sameSite: 'lax'
@@ -280,6 +292,7 @@ app.post("/api/login", async function (req, res) {
     userDatabase[userIndex].isLoggedIn = true;
     await saveUserDB(userDatabase);
 
+    flash('success', 'Login successful!');
     return res.redirect('/');
 });
 
@@ -288,7 +301,7 @@ app.post("/api/login", async function (req, res) {
   //////////////////////////////////////////////////////////////////////
 */
 
-//Logout Function
+// Logout Function
 app.post("/api/logout", async function (req, res) {
     if (req.session.user) {
         let userDatabase = await fetchUserDB();
@@ -308,7 +321,7 @@ app.post("/api/logout", async function (req, res) {
   //////////////////////////////////////////////////////////////////////
 */
 
-//News Posting Function
+// News Posting Function
 app.post("/api/news-posting-page", async function (req, res) {
     const { title, content, url } = req.body;
 
@@ -318,7 +331,7 @@ app.post("/api/news-posting-page", async function (req, res) {
         return res.send("You must be logged in to post news.");
     }
 
-    if (!title.trim().length || !content.trim().length || !url.trim().length) {
+    if (inputCheck(title) || inputCheck(content) || inputCheck(url)) {
         return res.send("Please fill in each part.");
     }
 
