@@ -55,6 +55,12 @@ app.use(async (req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+    res.locals.flash = req.flash();
+    res.locals.users = req.session.user;
+    next();
+});
+
 /*
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   //////////////////////////////////////////////////////////////////////
@@ -104,7 +110,6 @@ app.get("/set-cookie", (req, res) => {
 
 app.get("/get-cookie", (req, res) => {
     const rememberMe = req.cookies.rememberMe;
-    console.log(req.cookies.rememberMe);
     res.send("Cookie: " + rememberMe);
 });
 
@@ -235,7 +240,7 @@ app.post("/api/register", async function (req, res) {
 
     await saveUserDB(userDatabase);
 
-    flash('success', 'Registration successful!');
+    req.flash('success', ('Welcome ' + user.name + " " + user.surname));
     return res.redirect('/');
 });
 
@@ -288,11 +293,11 @@ app.post("/api/login", async function (req, res) {
 
     // Update isLoggedIn status in user database
     const userIndex = userDatabase.findIndex(u => u.email === email);
-    console.log(userIndex);
+    console.log("Index of User ==> " + userIndex);
     userDatabase[userIndex].isLoggedIn = true;
     await saveUserDB(userDatabase);
 
-    flash('success', 'Login successful!');
+    req.flash('success', ('Welcome back ' + user.name + " " + user.surname));
     return res.redirect('/');
 });
 

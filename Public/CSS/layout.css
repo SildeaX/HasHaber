@@ -173,10 +173,10 @@ li {
 }
 
 #welcome-message {
-    margin-right: auto;
     font-weight: 600;
     align-self: center;
     font-size: x-large;
+    margin-left: 5px;
 }
 
 #preview {
@@ -185,4 +185,8 @@ li {
     border: 1px solid #ccc;
     padding: 10px;
     box-sizing: border-box;
+}
+
+#top-bar-end-div{
+    justify-content: space-between;
 }

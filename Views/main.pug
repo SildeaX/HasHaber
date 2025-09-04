@@ -36,11 +36,6 @@ html
             ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
         }
         setInterval(date_time, 1000);
-
-    #welcome-message
-      if flash.success
-        each msg in flash.success
-          p= msg
     
     .register-login-upper-right-corner
       if !user || user.isLoggedIn === false
@@ -49,8 +44,6 @@ html
         form(action="/register" method="get") 
           input(type="submit", value="Register", id="register-upper-right") 
       else
-        #welcome-message
-          print Welcome back #{user.name + " " + user.surname}!
         #logout-upper-right-corner
         form(action="/api/logout", method="post")
           button#logout-button(type="submit")
@@ -61,11 +54,12 @@ html
       if user && user.isLoggedIn === true
         form(action="/news-posting-page" method="get")
           input(type="submit", value="Post News", id="post-news-upper-right")
-
-      //- if flash.success
+    
+    #welcome-message
+      if flash.success
         each msg in flash.success
           p= msg
-    
+
     .main-image
       ul
         li
