@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "de6ab6b0-6cc0-42df-b894-9644e9940d7e",
+    "name": "a",
+    "surname": "a",
+    "email": "a@gmail.com",
+    "password": "$2b$10$1jNFbb.Tu413j5g1rN3ISe5VkT5dbMZS02Nd0JMoTpFlZ6auSALPe",
+    "avatar": "Images/GuestAvatar.png",
+    "isLoggedIn": false,
+    "rememberToken": "c4b93d0368732e25b85a1f34303a08f1628baa9a384c90d724f251e308b326295618445172fcb77c4067637bfbcd3fabbb93560ea156d2cd6f6e6d9c475fd308"
+  }
+]

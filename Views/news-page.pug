@@ -56,25 +56,37 @@ html
     .main-image
       ul
         li
-          img.main-image(src= mainNews.url, alt= "Image cannot be loaded")
-          h2.title #{mainNews.title}
-          p.content #{mainNews.content}
+          img.main-image(src= newsData.url, alt= "Image cannot be loaded")
+          h2.title #{newsData.title}
+          p.content #{newsData.content}
 
-    div#new-page-comment-section-div
+    div#news-page-comment-section-div
       p(style="font-weight: 900;") Comments
-      textarea#new-page-comment-section(placeholder="Write a comment...", name="commentText", rows="4", minlength="1", maxlength="300")
-      input#new-page-comment-section-upload-button(type="submit", value="Comment") 
-
+      form(action="/api/news/" + newsData.newsId + "/addComment/", method="post")
+        textarea#news-page-add-comment(placeholder="Write Comment Here...", name="commentText", rows="5", minlength="1", maxlength="300")
+        input#news-page-comment-section-comment-button(type="submit", value="Comment") 
       ul
-        li.comment-section-li
-          .comment-section-div
-            span.comment-section-image-username-span
-              img#comment-avatar-image(src='/Images/GuestAvatar.png', alt="profile")
-              p.comment-section-username-p Username1
-            p.comment-section-comment-p First comment!
-        li.comment-section-li
-          .comment-section-div
-            span.comment-section-image-username-span
-              img#comment-avatar-image(src='/Images/GuestAvatar.png', alt="profile")
-              p.comment-section-username-p Username2
-            p.comment-section-comment-p Second comment!
+        each comment in newsData.comments
+          li.comment-section-li
+            .comment-section-div
+              span.comment-section-image-username-date-span
+                img.comment-reply-avatar-image(src=comment.avatar || '/GuestAvatar.png', alt="profile")
+                span.comment-section-username-date-span
+                  p.comment-section-username-p #{comment.commentName} #{comment.commentSurname.substring(0,1)}.
+                  p.comment-section-created-at Posted on: #{new Date(comment.createdAt).toLocaleString()}
+              p.comment-section-comment-p #{comment.commentText}
+              form(action="/api/news/" + newsData.newsId + "/addCommentReply/", method="post")
+                input(type="hidden", name="commentId", value=comment.commentId)
+                textarea#news-page-add-reply(placeholder="Write Reply Here...", name="replyText", rows="3", minlength="1", maxlength="200")
+                input#news-page-comment-section-reply-button(type="submit", value="Reply") 
+
+              ul
+                each reply in comment.commentReply
+                  li.comment-reply-li
+                    .news-page-reply-div
+                      span.comment-section-reply-image-username-date-span
+                        img.comment-reply-avatar-image(src=reply.replyUser.avatar || '/GuestAvatar.png', alt="profile")
+                        span.comment-section-username-date-span
+                          p.comment-section-reply-username-p #{reply.replyUser.name} #{reply.replyUser.surname.substring(0,1)}.
+                          p.comment-section-reply-created-at Replied on: #{new Date(reply.createdAt).toLocaleString()}
+                      p.comment-section-reply-text-p #{reply.replyText}  
