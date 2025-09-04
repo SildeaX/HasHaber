@@ -78,25 +78,37 @@ app.get("/news-posting-page", function (req, res) {
     res.render("news-posting-page.pug");
 });
 
-app.get("/news-page", function (req, res) {
+/*app.get("/news-page", function (req, res) {
     res.render("news-page.pug");
-});
+});*/
+
 app.get("/", async function (req, res) {
     let allNews = await fetchNewsDB();
-    currentNews = allNews.slice(-5).reverse();
+    const currentNews = allNews.slice(-5).reverse();
     res.render("main.pug", { mainNews: currentNews, user: req.session.user || undefined });
 });
 
-app.get("/api/news-page/:newsID", async function (req, res) {
+app.get("/news/:newsId", async function (req, res) {
     const newsDatabase = await fetchNewsDB();
-    const newsID = parseInt(req.params.newsID, 10);
-    const newsData = newsDatabase.find(currentNews => currentNews.newsID === newsID);
+    console.log("newsDatabase => " + newsDatabase);
+    const newsIndex = newsDatabase.findIndex((news) => news.newsId == req.params.newsId);
+    if (newsIndex === -1) {
+        return res.status(404).json({ error: "News not found" });
+    };
 
-    if (newsData === undefined) {
-        return res.status(404).send("Cannot find any news.");
-    }
+    const newsData = newsDatabase[newsIndex];
+    const userDatabase = await fetchUserDB();
+    newsData.comments = newsData.comments.map(comment => {
+        const commentUser = userDatabase.find(commentU => commentU.id === comment.userId);
 
-    return res.render("news-page", { mainNews: newsData, user: req.session.user || undefined });
+        comment.commentReply.forEach(reply => {
+            const replyUser = userDatabase.find(replyU => replyU.id === reply.userId);
+            reply.replyUser = { avatar: replyUser.avatar, name: replyUser.name, surname: replyUser.surname };
+        });
+
+        return { ...comment, commentAvatar: commentUser.avatar, commentName: commentUser.name, commentSurname: commentUser.surname };
+    });
+    return res.render("news-page", { newsData: newsData, user: req.session.user || undefined });
 });
 
 app.get("/set-cookie", (req, res) => {
@@ -209,6 +221,7 @@ app.post("/api/register", async function (req, res) {
         surname: surname,
         email: email,
         password: hashedPassword,
+        avatar: "Images/GuestAvatar.png",
         isLoggedIn: false,
     };
 
@@ -223,6 +236,7 @@ app.post("/api/register", async function (req, res) {
         name: user.name,
         surname: user.surname,
         email: user.email,
+        avatar: user.avatar,
         isLoggedIn: true
     }
 
@@ -276,6 +290,7 @@ app.post("/api/login", async function (req, res) {
         name: user.name,
         surname: user.surname,
         email: user.email,
+        avatar: user.avatar,
         isLoggedIn: true
     }
 
@@ -342,22 +357,81 @@ app.post("/api/news-posting-page", async function (req, res) {
 
     // New ID generation using newsCounter.json
     let lastId = await fetchNewsCounter();
-    let newsID = lastId + 1;
-    await saveNewsCounter(newsID);
+    let newsId = lastId + 1;
+    await saveNewsCounter(newsId);
 
     const newsData = {
-        newsID: newsID,
+        newsId: newsId,
         title: title,
         content: content,
         url: url,
         author: req.session.user.id,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        comments: []
     };
 
     newsDatabase.push(newsData);
     await saveNewsDB(newsDatabase);
 
     return res.redirect('/');
+});
+
+app.post("/api/news/:newsId/addComment/", async function (req, res) {
+    const newsId = parseInt(req.params.newsId);
+    if (req.session.user === undefined || !req.session.user.isLoggedIn) {
+        return res.render("login-page");
+    }
+
+    const newsDatabase = await fetchNewsDB();
+    const usersDatabase = await fetchUserDB();
+    const newsIndex = newsDatabase.findIndex((news) => news.newsId === newsId);
+    const userIndex = usersDatabase.findIndex((user) => user.id === req.session.user.id);
+    if (newsIndex === -1) {
+        return res.status(404).json({ error: "News not found" });
+    }
+    if (userIndex === -1) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    const newComment = {
+        commentId: uuidv4(),
+        commentText: String(req.body.commentText).trim(),
+        commentReply: [],
+        createdAt: new Date().toISOString(),
+        userId: req.session.user.id,
+    };
+    newsDatabase[newsIndex].comments.push(newComment);
+    saveNewsDB(newsDatabase);
+    saveUserDB(usersDatabase);
+    return res.redirect("/news/" + newsId);
+});
+
+app.post("/api/news/:newsId/addCommentReply", async function (req, res) {
+    if (req.session.user === undefined || !req.session.user.isLoggedIn) {
+        return res.render("login-page");
+    }
+    const newsId = parseInt(req.params.newsId);
+    const commentId = req.body.commentId;
+
+    const newsDatabase = await fetchNewsDB();
+    const newsIndex = newsDatabase.findIndex((news) => news.newsId === newsId);
+    if (newsIndex === -1) {
+        return res.status(404).json({ error: "News not found" });
+    }
+    const newsData = newsDatabase[newsIndex]
+
+    const commentIndex = newsData.comments.findIndex((comment) => comment.commentId === commentId);
+    if (commentIndex === -1) {
+        return res.status(404).json({ error: "Comment not found" });
+    }
+    const newReply = {
+        replyId: uuidv4(),
+        replyText: String(req.body.replyText).trim(),
+        createdAt: new Date().toISOString(),
+        userId: req.session.user.id,
+    };
+    newsData.comments[commentIndex].commentReply.push(newReply);
+    saveNewsDB(newsDatabase);
+    return res.redirect("/news/" + newsId);
 });
 
 // Start the server

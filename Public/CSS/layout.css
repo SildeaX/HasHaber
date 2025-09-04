@@ -125,7 +125,41 @@ li {
     margin-bottom: 12%;
 }
 
-#new-page-comment-section {
+
+#news-page-comment-section-comment-button {
+    width: 10%;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-left: 60%;
+}
+
+#news-page-comment-section-reply-button {
+    width: 10%;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-left: 60%;
+}
+
+.comment-section-image-username-date-span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comment-section-username-date-span {
+    flex-direction: column;
+    display: flex;
+}
+
+#news-page-add-comment {
     width: 70%;
     resize: none;
     border: none;
@@ -133,27 +167,41 @@ li {
     height: fit-content;
 }
 
-#new-page-comment-section-upload-button {
-    width: fit-content;
-    height: 25px;
+#news-page-add-reply {
+    width: 70%;
+    resize: none;
     border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    margin-top: 5px;
-    margin-bottom: 5%;
-    margin-left: 62%;
+    background-color: whitesmoke;
+    height: fit-content;
 }
 
-#new-page-comment-section-div {
-    width: 50%;
+#news-page-comment-section-div {
+    width: 60%;
+    resize: none;
+    border: none;
+    background-color: whitesmoke;
+    height: fit-content;
     margin-left: 1%;
 }
 
-.comment-section-image-username-span {
+.news-page-reply-div {
+    width: 60%;
+    resize: none;
+    border: none;
+    background-color: whitesmoke;
+    height: fit-content;
+    padding-left: 3%;
+}
+
+.comment-section-reply-image-username-date-span {
     align-items: center;
     flex-direction: row;
     display: flex;
-    gap: 5px;
+    gap: 10px;
+}
+
+.comment-section-reply-username-date-span {
+    flex-direction: column;
 }
 
 #news-posting-content {

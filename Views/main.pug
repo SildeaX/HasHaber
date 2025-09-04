@@ -64,7 +64,7 @@ html
       ul
         li
         each currentNews in mainNews
-            a.main-page-news(href="/api/news-page/" + currentNews.newsID)
+            a.main-page-news(href="news/" + currentNews.newsId)
               div
                 img.main-image(src= currentNews.url, alt="Image cannot be loaded")
                 h2.main-page-news-title #{currentNews.title}
